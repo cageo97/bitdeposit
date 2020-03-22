@@ -64,8 +64,8 @@
         };
     }
 
-    $container["exampleactions"] = function($container) {
-        return new \backend\functions\exampleactions;
+    $container["useractions"] = function($container) {
+        return new \backend\functions\useractions;
     };
 
     // include application routes

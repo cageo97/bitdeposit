@@ -13,7 +13,7 @@
     define('CONFIG_MYSQL', [
         "driver" => "mysql",
         "host" => "localhost",
-        "database" => "quickstart",
+        "database" => "bitdeposit",
         "username" => "newuser",
         "password" => "password",
         "charset" => "utf8",

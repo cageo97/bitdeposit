@@ -4,9 +4,11 @@
         <meta charset="utf-8">
         <title>{% block page_title %}{% endblock %}</title>
         {% block page_head %}{% endblock %}
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/style.css">
     </head>
     <body>
+        {% include "includes/navbar.twig" %}
         {% block page_body %}{% endblock %}
     </body>
 </html>
