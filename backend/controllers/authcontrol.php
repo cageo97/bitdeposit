@@ -4,7 +4,29 @@
     class authcontrol extends controller {
 
         public function login($rq, $re) {
-            return $this->container->view->render($re, "auth/login.twig");
+            
+            if($rq->isPost()) {
+                $email = $rq->getParam("email");
+                $password = $rq->getParam("password");
+
+                if(empty($email) || empty($password)) {
+                    $error = "All fields are empty";
+                } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $error = "Invalid email format";
+                } elseif($uid = $this->container->useractions->login($email, $password)) {
+                    $_SESSION["uid"] = $uid;
+                    return $re->withRedirect('/');
+                } else {
+                    $error = "Invalid email or password";
+                }
+            }
+
+            return $this->container->view->render($re, "auth/login.twig", [
+                "form" => [
+                    "error" => $error,
+                    "email" => $email
+                ]
+            ]);
         }
 
         public function register($rq, $re) {
@@ -38,6 +60,7 @@
         }
 
         public function logout($rq, $re) {
+            session_destroy();
             unset($_SESSION["uid"]);
             return $re->withRedirect('/');
         }

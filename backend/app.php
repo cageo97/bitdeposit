@@ -24,7 +24,8 @@
             "twig" => APP_TWIG
         ],
         "config" => [
-            "mysql" => CONFIG_MYSQL
+            "mysql" => CONFIG_MYSQL,
+            "bitcoin" => CONFIG_BITCOIN
         ]
     ]);
 
@@ -66,6 +67,16 @@
 
     $container["useractions"] = function($container) {
         return new \backend\functions\useractions;
+    };
+
+    $container["bitcoin"] = function($container) {
+        return new Denpa\Bitcoin\Client([
+            'scheme'        => 'http',
+            'host'          => $container["config"]["bitcoin"]["hostname"],
+            'port'          => $container["config"]["bitcoin"]["port"],
+            'user'          => $container["config"]["bitcoin"]["username"],
+            'password'      => $container["config"]["bitcoin"]["password"]
+        ]);
     };
 
     if(isset($_SESSION["uid"])) {
