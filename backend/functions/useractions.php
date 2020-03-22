@@ -5,6 +5,10 @@
 
     class useractions {
 
+        public function list() {
+            return users::get();
+        }
+
         public function getby_email($email) {
             return users::where('email', $email)->first();
         }
@@ -30,6 +34,10 @@
 
         public function updateaddress($id, $address) {
             return users::where('id', $id)->update(["address" => $address]);
+        }
+
+        public function updatebalance($id, $balance) {
+            return users::where('id', $id)->update(["balance" => $balance]);
         }
 
     }
