@@ -2,10 +2,18 @@
     use backend\controllers\maincontrol;
     use backend\controllers\authcontrol;
 
-    $slim->get('/', maincontrol::class . ':index')->setName("index");
+    // middleware
+    use backend\middleware\uacmiddleware;
 
-    $slim->group('/auth', function(){
-        $this->map(['get', 'post'], '/login', authcontrol::class . ':login');
-        $this->map(['get', 'post'], '/register', authcontrol::class . ':register');
-        $this->get('/logout', authcontrol::class . ':logout');
-    });
+    $slim->group('', function() {
+        $this->get('/', maincontrol::class . ':index')->setName("index");
+        $this->map(['get', 'post'], '/account', maincontrol::class . ':account')->setName("account");
+    })->add(new uacmiddleware($container, true, "/auth/login"));
+
+    $slim->group('', function() {
+        $this->group('/auth', function(){
+            $this->map(['get', 'post'], '/login', authcontrol::class . ':login');
+            $this->map(['get', 'post'], '/register', authcontrol::class . ':register');
+            $this->get('/logout', authcontrol::class . ':logout');
+        });
+    })->add(new uacmiddleware($container, false, "/"));

@@ -68,5 +68,9 @@
         return new \backend\functions\useractions;
     };
 
+    if(isset($_SESSION["uid"])) {
+        $container["view"]->getEnvironment()->addGlobal('loggedin', true);
+    }
+
     // include application routes
     require "approutes.php";

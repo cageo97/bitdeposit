@@ -12,10 +12,16 @@
     // this is just my local setup for mySQL. Please change this as needed
     define('CONFIG_MYSQL', [
         "driver" => "mysql",
-        "host" => "localhost",
+        "host" => "172.17.0.1",
         "database" => "bitdeposit",
         "username" => "newuser",
         "password" => "password",
         "charset" => "utf8",
         "collation" => "utf8_unicode_ci"
+    ]);
+
+    define('CONFIG_BITCOIN', [
+        "hostname" => "172.17.0.1",
+        "username" => "bitcoinrpc",
+        "password" => "password"
     ]);

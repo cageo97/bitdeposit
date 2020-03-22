@@ -7,4 +7,8 @@
             return $this->container->view->render($re, "index.twig");
         }
 
+        public function account($rq, $re) {
+            return $this->container->view->render($re, "account.twig");
+        }
+
     }
