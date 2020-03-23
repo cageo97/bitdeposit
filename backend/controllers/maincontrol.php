@@ -13,6 +13,7 @@
             if($rq->isPost() && empty($userdata["address"])) {
                 $newaddress = $this->container->bitcoin->getnewaddress()->result();
                 $this->container->useractions->updateaddress($_SESSION["uid"], $newaddress);
+                return $re->withRedirect("/account");
             }
 
             return $this->container->view->render($re, "account.twig", [

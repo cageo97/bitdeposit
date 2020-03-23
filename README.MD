@@ -1,3 +1,3 @@
-# PHP Slim Quick Start
+# Basic Bitcoin deposit site with user auth
 
-This is a basic PHP Slim set up made to make development of web applications a bit quicker for me. Feel free to use it for what ever you like. You don't need to credit me ;)
+This is a basic Bitcoin deposit site with user auth writen with Slim PHP. You can use it for what ever you want and you don't need to credit or thank me :)

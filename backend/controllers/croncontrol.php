@@ -6,7 +6,7 @@
         public function checkaddresses($rq, $re) {
             
             foreach($this->container->bitcoin->listtransactions()->result() as $trans) {
-                if(!$this->container->paymentactions->getby_txid($trans["txid"]) && $trans["confirmations"] > 1) {
+                if(!$this->container->paymentactions->getby_txid($trans["txid"]) && $trans["confirmations"] >= 1) {
                     $this->container->paymentactions->create($trans["address"], $trans["txid"], $trans["amount"]);
                     $userdata = $this->container->useractions->getby_address($trans["address"]);
                     if($userdata) { $this->container->useractions->updatebalance($userdata["id"], $trans["amount"]); }
