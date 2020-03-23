@@ -74,13 +74,7 @@
     };
 
     $container["bitcoin"] = function($container) {
-        return new Denpa\Bitcoin\Client([
-            'scheme'        => 'http',
-            'host'          => $container["config"]["bitcoin"]["hostname"],
-            'port'          => $container["config"]["bitcoin"]["port"],
-            'user'          => $container["config"]["bitcoin"]["username"],
-            'password'      => $container["config"]["bitcoin"]["password"]
-        ]);
+        return new Denpa\Bitcoin\Client($container["config"]["bitcoin"]);
     };
 
     if(isset($_SESSION["uid"])) {

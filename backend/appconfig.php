@@ -21,8 +21,9 @@
     ]);
 
     define('CONFIG_BITCOIN', [
-        "hostname" => "172.17.0.1",
-        "username" => "bitcoinrpc",
+        "scheme" => "http",
+        "host" => "172.17.0.1",
+        "user" => "bitcoinrpc",
         "password" => "password",
         "port" => 8332
     ]);

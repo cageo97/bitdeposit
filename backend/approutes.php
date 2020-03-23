@@ -6,6 +6,11 @@
     // middleware
     use backend\middleware\uacmiddleware;
 
+    // uacmiddleware
+    // true = needs to be logged in
+    // false = needs to be logged out
+    // if uacmiddleware not added to route anyone can view it
+
     $slim->group('', function() {
         $this->get('/', maincontrol::class . ':index')->setName("index");
         $this->map(['get', 'post'], '/account', maincontrol::class . ':account')->setName("account");
