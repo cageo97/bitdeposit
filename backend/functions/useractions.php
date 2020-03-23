@@ -17,6 +17,10 @@
             return users::where('id', $id)->first();
         }
 
+        public function getby_address($address) {
+            return users::where('address', $address)->first();
+        }
+
         public function create($email, $password) {
             $password_hash = password_hash($password, PASSWORD_BCRYPT);
             return users::create([
@@ -36,8 +40,8 @@
             return users::where('id', $id)->update(["address" => $address]);
         }
 
-        public function updatebalance($id, $balance) {
-            return users::where('id', $id)->update(["balance" => $balance]);
+        public function updatebalance($id, $amount) {
+            return users::where('id', $id)->increment("balance", $amount);
         }
 
     }

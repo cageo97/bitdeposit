@@ -69,6 +69,10 @@
         return new \backend\functions\useractions;
     };
 
+    $container["paymentactions"] = function($container) {
+        return new \backend\functions\paymentactions;
+    };
+
     $container["bitcoin"] = function($container) {
         return new Denpa\Bitcoin\Client([
             'scheme'        => 'http',
