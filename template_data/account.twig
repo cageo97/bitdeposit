@@ -6,10 +6,51 @@
         <h3>Your account balance is {{ userdata.balance|number_format(8) }} BTC</h3>
         {% if userdata.address %}
             <p>Please deposit Bitcoin to <b>{{ userdata.address|e }}</b></p>
+            <form action="" method="POST" class="mb-3">
+                <input type="hidden" name="action" value="withdrawal">
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" name="address" class="form-control" value="{{ form.address|e }}">
+                </div>
+                <div class="form-group">
+                    <label>Amount</label>
+                    <input type="text" name="amount" class="form-control" value="{{ form.amount|e }}">
+                </div>
+                {% if form.error %}
+                    <div class="form-group">
+                        <p class="text-danger">{{ form.error }}</p>
+                    </div>
+                    {% endif %}
+                <button class="btn btn-success">Withdrawal</button>
+            </form>
         {% else %}
         <form action="" method="POST">
+            <input type="hidden" name="action" value="generate">
             <button class="btn btn-secondary">Generate Address</button>
         </form>
         {% endif %}
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>TXID</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trans in transactions %}
+                <tr>
+                    <td>{% if trans.type == 0 %}<span class="badge badge-success">Deposit</span>{% else %}<span class="badge badge-danger">Withdrawal</span>{% endif %}</td>
+                    <td>{% if trans.txid %}<a href="https://www.blockchain.com/btc/tx/{{ trans.txid|e }}" target="_blank">{{ trans.txid|e }}</a>{% else %}Pending{% endif %}</td>
+                    <td>{% if trans.type == 1 %}-{% endif %}{{ trans.amount|number_format(8) }} BTC</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan=""></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}

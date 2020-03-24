@@ -3,23 +3,26 @@
 
     class croncontrol extends controller {
 
-        public function checkaddresses($rq, $re) {
+        public function checkpayments($rq, $re) {
             
             foreach($this->container->bitcoin->listtransactions()->result() as $trans) {
                 if(!$this->container->paymentactions->getby_txid($trans["txid"]) && $trans["confirmations"] >= 1) {
-                    $this->container->paymentactions->create($trans["address"], $trans["txid"], $trans["amount"]);
-                    $userdata = $this->container->useractions->getby_address($trans["address"]);
-                    if($userdata) { $this->container->useractions->updatebalance($userdata["id"], $trans["amount"]); }
+                    $userdata = $this->container->useractions->getby_address($trans["address"]);    
+                    if($userdata) {
+                        $this->container->paymentactions->create($userdata["id"], 0, $trans["address"], $trans["txid"], $trans["amount"]);
+                        $this->container->useractions->updatebalance($userdata["id"], $trans["amount"]);
+                    }
                 }
             }
 
-            // wtf was I doing?
+        }
 
-            // foreach($this->container->useractions->list() as $user) {
-            //     $balance = $this->container->bitcoin->getreceivedbyaddress($user["address"], 0)->result();
-                
-            //     $this->container->useractions->updatebalance($user["id"], $balance);
-            // }
+        public function withdrawal($rq, $re) {
+
+            foreach($this->container->paymentactions->listpending() as $pay) {
+                $txid = $this->container->bitcoin->sendtoaddress($pay["address"], $pay["amount"], "", "", true)->result();
+                $this->container->paymentactions->updatetxid($pay["id"], $txid);
+            }
 
         }
 

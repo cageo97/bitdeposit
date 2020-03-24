@@ -8,6 +8,8 @@
         protected $table = "payments";
 
         protected $fillable = [
+            "uid",
+            "type",
             "address",
             "txid",
             "amount"
