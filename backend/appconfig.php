@@ -1,7 +1,7 @@
 <?php
     define('APP_SESSION', true); // Setting to true will enable session_start for every page
-    define('APP_DEBUG', true); // Setting to true will enable slim's debug mode (DO NOT LEAVE true IN PRODUCTION!)
-    define('PHP_REPORTING', true); // Setting to true will enable PHP debugging, this might mess with Slim. (DO NOT LEAVE true IN PRODUCTION!)
+    define('APP_DEBUG', false); // Setting to true will enable slim's debug mode (DO NOT LEAVE true IN PRODUCTION!)
+    define('PHP_REPORTING', false); // Setting to true will enable PHP debugging, this might mess with Slim. (DO NOT LEAVE true IN PRODUCTION!)
 
     define('APP_TWIG', [
         "templates" => "../template_data",
